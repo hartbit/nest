@@ -68,7 +68,9 @@ describe('FileStreamInterceptor', () => {
       for await (const _ of req.file.stream) {
         // consume
       }
-    }).rejects.toEqual(new PayloadTooLargeException('File too large'));
+    }).rejects.toEqual(
+      new PayloadTooLargeException('File too large', { limit: 4 }),
+    );
   });
 
   it('should fail the stream once the file goes over fileSize', async () => {
@@ -83,7 +85,9 @@ describe('FileStreamInterceptor', () => {
       for await (const _ of req.file.stream) {
         // consume
       }
-    }).rejects.toEqual(new PayloadTooLargeException('File too large'));
+    }).rejects.toEqual(
+      new PayloadTooLargeException('File too large', { limit: 4 }),
+    );
   });
 
   it('should apply the field name limits to the fields before the file', async () => {
